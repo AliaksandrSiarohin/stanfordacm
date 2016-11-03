@@ -25,6 +25,7 @@ def get_sections():
                 if subsection_name is None:
                     raise ValueError('Subsection given without section')
                 subsections.append((filename, subsection_name))
+    sections.append((section_name, subsections))
     return sections
 
 def get_style(filename):
