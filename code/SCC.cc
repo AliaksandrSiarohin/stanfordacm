@@ -1,37 +1,49 @@
-#include<memory.h>
-struct edge{int e, nxt;};
-int V, E;
-edge e[MAXE], er[MAXE];
-int sp[MAXV], spr[MAXV];
-int group_cnt, group_num[MAXV];
-bool v[MAXV];
-int stk[MAXV];
-void fill_forward(int x)
-{
-  int i;
-  v[x]=true;
-  for(i=sp[x];i;i=e[i].nxt) if(!v[e[i].e]) fill_forward(e[i].e);
-  stk[++stk[0]]=x;
-}
-void fill_backward(int x)
-{
-  int i;
-  v[x]=false;
-  group_num[x]=group_cnt;
-  for(i=spr[x];i;i=er[i].nxt) if(v[er[i].e]) fill_backward(er[i].e);
-}
-void add_edge(int v1, int v2) //add edge v1->v2
-{
-  e [++E].e=v2; e [E].nxt=sp [v1]; sp [v1]=E;
-  er[  E].e=v1; er[E].nxt=spr[v2]; spr[v2]=E;
-}
-void SCC()
-{
-  int i;
-  stk[0]=0;
-  memset(v, false, sizeof(v));
-  for(i=1;i<=V;i++) if(!v[i]) fill_forward(i);
-  group_cnt=0;
-  for(i=stk[0];i>=1;i--) if(v[stk[i]]){group_cnt++; fill_backward(stk[i]);}
-}
+#include <vector>
+#include <iostream>
+#include <cmath>
 
+using namespace std;
+using vi = vector<int>;
+using vvi = vector<vector<int>>;
+const int UNVISITED = -1;
+
+struct SCC {
+	vvi AdjList;
+	vi dfs_num, dfs_low, S, visited, scc;
+	int num_scc, dfsNumberCounter, V;
+	SCC(int V) : dfs_num(V, UNVISITED), dfs_low(V, 0), V(V),
+			 visited(V, 0), scc(V), num_scc(0), AdjList(V, vi()),
+			 dfsNumberCounter(0) {}
+	void tarjanSCC(int u) {
+		dfs_low[u] = dfs_num[u] = dfsNumberCounter++;
+		S.push_back(u);
+		visited[u] = 1;
+		for (int j = 0; j < (int)AdjList[u].size(); j++) {
+			int v = AdjList[u][j];
+			if (dfs_num[v] == UNVISITED)
+				tarjanSCC(v);
+			if (visited[v])
+				dfs_low[u] = min(dfs_low[u], dfs_low[v]);
+		}
+		if (dfs_low[u] == dfs_num[u]) {
+			
+			while (1) {
+				int v = S.back(); S.pop_back(); visited[v] = 0;
+				scc[v] = num_scc;
+				if (u == v) {
+					num_scc++;
+				        break;
+				}
+		 	}
+		}
+ 	}
+
+	void addEdge(int u, int v){
+		AdjList[u].push_back(v);
+	}
+	void run() {
+		for (int i = 0; i < V; i++)
+			if (dfs_num[i] == UNVISITED)
+				tarjanSCC(i);		
+	}
+};

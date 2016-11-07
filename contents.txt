@@ -36,7 +36,7 @@ FFT_new.cc	Fast Fourier transform
 Simplex.cc	Simplex algorithm
 #FFT.cc	Fast Fourier transform (C++)
 Primes.cc	Prime numbers
-
+ternary_search.cc	Ternary Search
 
 [Data structures]
 BIT.cc	Binary Indexed Tree
@@ -54,6 +54,8 @@ KMP.cc	Knuth-Morris-Pratt
 #LongestIncreasingSubsequence.cc	Longest increasing subsequence
 #Dates.cc	Dates
 #LogLan.java	Regular expressions
+big_int.java	Java BigInteger
+io.java	Java input/output
 IO.cc	C++ input/output
 #LatLong.cc	Latitude/longitude
 #EmacsSettings.txt	Emacs settings
