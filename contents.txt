@@ -57,6 +57,10 @@ KMP.cc	Knuth-Morris-Pratt
 big_int.java	Java BigInteger
 io.java	Java input/output
 IO.cc	C++ input/output
+Algo.cc	C++ std algorithm
+String.cc	C++ std string
+CompleteSearch.cc	Compleate Search
+Set_Map.cc	C++ std set
 #LatLong.cc	Latitude/longitude
 #EmacsSettings.txt	Emacs settings
 #TopologicalSort.cc	Topological sort (C++)
